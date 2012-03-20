@@ -1,0 +1,7 @@
+Fourspace is a Processing 2.0 application to visualize polytopes in four spatial dimensions. Note that this is not the same thing as three dimensions of space and one of time, as we commonly experience; if this is confusing, you may want to take a look at <http://eusebeia.dyndns.org/4d/vis/01-intro> for a helpful introduction to higher spatial dimensions.
+
+This program aims at illuminating the basics of 4D geometry through exploration. Users can rotate the projections of 4D objects (essentially 3D "shadows" of the objects' true forms), either using the mouse to rotate in 3 dimensions, or the 'x', 'y', and 'z' keys to rotate in the XW, YW, and ZW planes. Cross-eyed stereo projection is also supported; help is displayed by default to give users a sense of the controls.
+
+The 4D to 3D projection algorithm is a straightforward Java port of C code from Steve Hollasch's 1991 thesis, "Four-Space Visualization of 4D Objects" <http://steve.hollasch.net/thesis/>. Matrix math is executed natively using JBLAS, a wrapper for BLAS/LAPACK <http://jblas.org>. Arbitrary geometry can be loaded with the "VEFC" file format; a comma-separated list of 4D points, followed by comma-separated lists of vertex indices for each edge, face, and "cell" (3D volume).
+
+Please note: this source will only work under 64-bit mode on Macs due to the JBLAS dependency, and thus requires Processing 2.0a4 or above to run. The Windows version, on the other hand, will only work in 32-bit mode. I have not tested the latter, so your mileage may vary.
