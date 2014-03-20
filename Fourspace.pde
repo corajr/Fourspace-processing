@@ -1,6 +1,7 @@
 /**
  * Fourspace 
  * by Chris Johnson-Roberson
+ * first working March 21, 2012
  *
  * projection algorithm from "Four-Space Visualization of 4D Objects" <http://steve.hollasch.net/thesis/> (Hollasch 1991)
  * native matrix math routines from <http://jblas.org>
@@ -10,10 +11,11 @@
 import damkjer.ocd.*;
 import processing.opengl.*;
 import javax.media.opengl.*;
+import java.util.*;
 import org.jblas.*;
 
 PGraphicsOpenGL pgl;
-GL gl;
+GL2 gl;
 
 ArrayList faces, labels;
 Cell[] cells;
@@ -32,10 +34,7 @@ float interocularAngle = -0.03509;
 int steps = 10;
 String proj_type;
 Camera cam1, cam2, camAxes;
-PGraphics hud;
-PImage img;
 int opacity = 0x44FFFFFF;
-PFont font;
 
 String modelName = "8-cell (hypercube)";
 
@@ -44,7 +43,8 @@ boolean stereo = false;
 boolean panning = false;
 boolean facesActive = true, normalsActive = false, axesActive = false;
 boolean labelsActive = false, namesActive = false;
-boolean faceLabels = true, cellLabels = false, vertexLabels = false, vertexCoordLabels = false, fps = false, helpActive = true;
+boolean faceLabels = true, cellLabels = false, vertexLabels = false, vertexCoordLabels = false;
+boolean fps = false, helpActive = true;
 boolean lockTo4DViewpoint = false;
 boolean depthCueing = true, hiddenVolumeRemoval = false;
 boolean rotXW = false, rotYW = false, rotZW = false;
@@ -67,12 +67,9 @@ String[] helpText = new String[] {
 
 
 void setup() {
-  size(screenWidth, screenHeight, OPENGL);
-  // if Processing 1.5:
-  // size(screen.width, screen.height, OPENGL);
+  size(displayWidth, displayHeight, OPENGL);
   
-  font = createFont("Monaco", 12);
-  textFont(font);
+  pgl = (PGraphicsOpenGL) g;
 
   proj_type = "PERSPECTIVE";
   centerX = width/2.0;
@@ -136,9 +133,7 @@ void draw() {
   noLights();
   stroke(255);
 
-  pgl = (PGraphicsOpenGL) g;
-  gl = pgl.gl;
-
+  gl = ((PJOGL) beginPGL()).gl.getGL2();
 
   if (labelsActive || helpActive || namesActive) labels.clear();
   if (stereo) {
@@ -180,6 +175,7 @@ void draw() {
     }
     project4Dcells();
   }
+  endPGL();
 }
 
 void drawCells() {

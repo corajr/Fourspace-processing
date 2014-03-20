@@ -4,4 +4,6 @@ This program aims at illuminating the basics of 4D geometry through exploration.
 
 The 4D to 3D projection algorithm is a straightforward Java port of C code from Steve Hollasch's 1991 thesis, "Four-Space Visualization of 4D Objects" <http://steve.hollasch.net/thesis/>. Matrix math is executed natively using JBLAS, a wrapper for BLAS/LAPACK <http://jblas.org>. Arbitrary geometry can be loaded with the "VEFC" file format; a comma-separated list of 4D points, followed by comma-separated lists of vertex indices for each edge, face, and "cell" (3D volume).
 
-Please note: this source will only work under 64-bit mode on Macs due to the JBLAS dependency, and thus requires Processing 2.0a4 or above to run. The Windows version, on the other hand, will only work in 32-bit mode. I have not tested the latter, so your mileage may vary.
+Please note: this source will only work under 64-bit mode on Macs due to the JBLAS dependency, and thus requires Processing 2.0a5 or above to run. The Windows version, on the other hand, will only work in 32-bit mode. I have not tested the latter, so your mileage may vary.
+
+UPDATE: The software now works in Processing 2.1.1, but curiously the HUD no longer appears. The keys should still work (see Fourspace.pde for key bindings).
